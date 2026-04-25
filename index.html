@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#F5F2EA">
+<title>VELOX-1 · The World's First AI-Optimized Paper Clip · ARX Labs</title>
+<meta name="description" content="Made for paper. Built for workflow. SOTA Open-Weight Wire Geometry Model. Trained on 10M document scenarios.">
+<meta property="og:title" content="VELOX-1 · The World's First AI-Optimized Paper Clip">
+<meta property="og:description" content="Made for paper. Built for workflow. By ARX Labs.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper: #F5F2EA;
+  --ink: #0E0E0E;
+  --steel: #7A7A7A;
+  --rust: #B85C2E;
+  --velox: #D4571E;
+  --ash: #9A9590;
+  --line: #D9D5CB;
+  --light: #FAF8F1;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html { background: var(--paper); scroll-behavior: smooth; }
+body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: var(--ink); background: var(--paper); overflow-x: hidden; line-height: 1.5; font-weight: 400; }
+@media (min-width: 1024px) { html { cursor: none; } }
+img, svg, video { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { background: none; border: none; cursor: inherit; font: inherit; color: inherit; }
+
+.serif { font-family: 'Fraunces', Georgia, serif; }
+.mono { font-family: ui-monospace, 'SF Mono', Menlo, Monaco, monospace; }
+.italic { font-style: italic; }
+
+/* === Layout primitives === */
+.wrap { max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; }
+@media (min-width: 1024px) { .wrap { padding: 0 3rem; } }
+.wrap-narrow { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+@media (min-width: 1024px) { .wrap-narrow { padding: 0 3rem; } }
+.grid { display: grid; gap: 2rem; }
+.flex { display: flex; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.items-end { align-items: flex-end; }
+.items-start { align-items: flex-start; }
+.items-baseline { align-items: baseline; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.gap-3 { gap: 0.75rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+.gap-9 { gap: 2.25rem; }
+.gap-12 { gap: 3rem; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.hidden { display: none; }
+@media (min-width: 768px) { .md\:flex { display: flex; } .md\:grid { display: grid; } .md\:hidden { display: none; } .md\:inline { display: inline; } }
+@media (min-width: 1024px) { .lg\:flex { display: flex; } }
+
+/* === Typography utilities === */
+.eyebrow { letter-spacing: 0.2em; text-transform: uppercase; font-size: 10px; font-weight: 600; font-family: ui-monospace, 'SF Mono', monospace; }
+.display-xl { font-family: 'Fraunces', serif; font-weight: 300; line-height: 0.92; letter-spacing: -0.04em; }
+.display-display { font-family: 'Fraunces', serif; font-weight: 300; line-height: 0.86; letter-spacing: -0.05em; }
+
+/* === Grain texture (single global) === */
+.grain-bg { position: relative; }
+.grain-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.06 0 0 0 0 0.06 0 0 0 0 0.06 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none; mix-blend-mode: multiply; opacity: 0.6;
+}
+
+/* === CUSTOM CURSOR (desktop only) === */
+.cursor, .cursor-dot { display: none; }
+@media (min-width: 1024px) and (pointer: fine) {
+  .cursor {
+    display: block;
+    position: fixed; top: 0; left: 0;
+    width: 14px; height: 14px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 280ms, height 280ms, background 280ms, border-color 280ms;
+    will-change: transform;
+  }
+  .cursor.hover { width: 56px; height: 56px; background: var(--velox); border-color: var(--velox); }
+  .cursor-dot {
+    display: block;
+    position: fixed; top: 0; left: 0;
+    width: 4px; height: 4px;
+    background: var(--velox);
+    border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+  }
+}
+
+/* === BUTTONS === */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.875rem;
+  padding: 1.1rem 2rem;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  font-family: ui-monospace, 'SF Mono', monospace;
+  cursor: inherit;
+  transition: all 350ms cubic-bezier(.4,0,.2,1);
+  border: 1px solid currentColor;
+  background: transparent;
+}
+.btn-primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-primary:hover { background: transparent; color: var(--ink); letter-spacing: 0.28em; }
+.btn-velox { background: var(--velox); color: var(--light); border-color: var(--velox); }
+.btn-velox:hover { background: transparent; color: var(--velox); letter-spacing: 0.28em; }
+.btn-arrow { width: 22px; height: 1px; background: currentColor; position: relative; flex-shrink: 0; }
+.btn-arrow::after { content: ''; position: absolute; right: 0; top: -3px; width: 7px; height: 7px; border-top: 1px solid currentColor; border-right: 1px solid currentColor; transform: rotate(45deg); }
+
+/* === NAV === */
+nav#main-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.1rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 360ms, backdrop-filter 360ms, padding 360ms;
+}
+nav#main-nav.scrolled { background: rgba(245, 242, 234, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--line); }
+@media (min-width: 1024px) { nav#main-nav { padding: 1.25rem 2rem; } }
+.nav-logo { display: flex; align-items: center; gap: 0.6rem; }
+.nav-logo span { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 500; letter-spacing: -0.01em; }
+.nav-links { display: none; gap: 2.25rem; }
+@media (min-width: 768px) { .nav-links { display: flex; } }
+.nav-link { font-family: ui-monospace, 'SF Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; transition: opacity 250ms; }
+.nav-link:hover { opacity: 0.5; }
+.nav-cta { display: none; }
+@media (min-width: 768px) { .nav-cta { display: inline-flex; } }
+
+/* === HERO === */
+section.hero { padding: 7rem 0 5rem; position: relative; }
+@media (min-width: 768px) { section.hero { padding: 9rem 0 7rem; } }
+.hero-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4rem; font-family: ui-monospace, 'SF Mono', monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--ash); text-transform: uppercase; flex-wrap: wrap; gap: 1rem; }
+.hero-grid { display: grid; gap: 2rem; align-items: end; }
+@media (min-width: 768px) { .hero-grid { grid-template-columns: repeat(12, 1fr); } }
+.hero-headline { grid-column: span 12; }
+@media (min-width: 768px) { .hero-headline { grid-column: span 9; } }
+.hero-headline h1 {
+  font-family: 'Fraunces', serif; font-weight: 300;
+  font-size: clamp(56px, 13vw, 200px);
+  line-height: 0.86;
+  letter-spacing: -0.05em;
+  margin-bottom: 0;
+}
+.hero-headline em { color: var(--velox); font-style: italic; font-weight: 400; }
+.hero-meta-credit { grid-column: span 12; padding-bottom: 0.5rem; }
+@media (min-width: 768px) { .hero-meta-credit { grid-column: span 3; } }
+.hero-meta-credit p:nth-of-type(1) { font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ash); text-transform: uppercase; margin-bottom: 0.6rem; }
+.hero-meta-credit .agency { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 400; }
+.hero-meta-credit p:nth-of-type(3) { font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ash); text-transform: uppercase; margin-top: 0.25rem; }
+
+.hero-sub-row { display: grid; gap: 2rem; margin-top: 3.5rem; align-items: start; }
+@media (min-width: 768px) { .hero-sub-row { grid-template-columns: repeat(12, 1fr); } }
+.hero-sub-text { grid-column: span 12; }
+@media (min-width: 768px) { .hero-sub-text { grid-column: span 7; } }
+.hero-sub-text p { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(20px, 2.5vw, 30px); line-height: 1.4; letter-spacing: -0.01em; }
+.hero-sub-text em { font-style: italic; }
+
+.paperclip-hero { grid-column: span 12; display: flex; justify-content: center; padding-top: 1rem; }
+@media (min-width: 768px) { .paperclip-hero { grid-column: span 5; justify-content: flex-end; align-items: flex-end; } }
+.paperclip-container { position: relative; }
+.paperclip-anim { transform-origin: center; transition: transform 600ms cubic-bezier(.4,0,.2,1); }
+.paperclip-container:hover .paperclip-anim { transform: rotate(15deg) scale(1.05); }
+.paperclip-caption { position: absolute; top: -0.75rem; left: -2.5rem; font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--rust); text-transform: uppercase; }
+
+.hero-cta-row { display: grid; gap: 2rem; margin-top: 4rem; align-items: center; }
+@media (min-width: 768px) { .hero-cta-row { grid-template-columns: repeat(12, 1fr); } }
+.hero-ctas { grid-column: span 12; display: flex; flex-wrap: wrap; gap: 1rem; }
+@media (min-width: 768px) { .hero-ctas { grid-column: span 6; } }
+.hero-pricing { grid-column: span 12; display: flex; gap: 3rem; flex-wrap: wrap; }
+@media (min-width: 768px) { .hero-pricing { grid-column: span 6; justify-content: flex-end; } }
+.hero-pricing .label { font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--ash); text-transform: uppercase; }
+.hero-pricing .value { font-family: 'Fraunces', serif; font-size: 1.875rem; font-weight: 400; margin-top: 0.25rem; }
+.hero-pricing .value .small { font-family: ui-monospace, monospace; font-size: 0.875rem; color: var(--ash); margin-left: 0.25rem; }
+
+/* === MARQUEE === */
+.marquee-section { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 2rem 0; background: var(--light); overflow: hidden; }
+.marquee-track { display: flex; gap: 4rem; animation: marquee 38s linear infinite; white-space: nowrap; width: fit-content; will-change: transform; }
+.marquee-track:hover { animation-play-state: paused; }
+.marquee-item { font-family: 'Fraunces', serif; font-size: clamp(36px, 7vw, 88px); font-weight: 300; color: var(--ink); letter-spacing: -0.03em; flex-shrink: 0; font-style: italic; }
+.marquee-item.dot { color: var(--velox); font-style: normal; }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+/* === SECTION padding === */
+section { padding: 5rem 0; position: relative; }
+@media (min-width: 768px) { section { padding: 8rem 0; } }
+section.bg-light { background: var(--light); }
+section.bg-ink { background: var(--ink); color: var(--paper); }
+
+/* === NARRATIVE === */
+.narr-eyebrow { color: var(--rust); }
+.narr-headline { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(48px, 9vw, 132px); line-height: 0.92; letter-spacing: -0.04em; margin: 1.5rem 0 1.5rem; }
+.narr-headline em { font-style: italic; }
+.narr-body { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(20px, 2.5vw, 30px); line-height: 1.4; }
+.narr-body sup { color: var(--rust); }
+.footnote { font-family: ui-monospace, monospace; font-size: 12px; color: var(--ash); margin-top: 0.5rem; }
+.footnote sup { color: var(--rust); }
+
+/* === FEATURE === */
+.feat-grid { display: grid; gap: 3rem; margin-bottom: 5rem; }
+@media (min-width: 768px) { .feat-grid { grid-template-columns: repeat(12, 1fr); } }
+.feat-left { grid-column: span 12; }
+@media (min-width: 768px) { .feat-left { grid-column: span 4; } }
+.feat-left h2 { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(40px, 5.5vw, 72px); line-height: 0.94; letter-spacing: -0.04em; margin-top: 1.5rem; }
+.feat-left h2 em { color: var(--velox); font-style: italic; }
+.feat-right { grid-column: span 12; padding-top: 1rem; }
+@media (min-width: 768px) { .feat-right { grid-column: span 7; grid-column-start: 6; padding-top: 2rem; } }
+.feat-right p:first-of-type { font-family: 'Fraunces', serif; font-weight: 300; font-size: 1.25rem; line-height: 1.5; margin-bottom: 1.5rem; }
+.feat-right p:nth-of-type(2) { color: var(--steel); margin-bottom: 2rem; line-height: 1.6; }
+
+.academic-link { display: inline-flex; align-items: center; gap: 0.5rem; font-family: ui-monospace, monospace; font-size: 12px; border-bottom: 1px dashed currentColor; padding-bottom: 2px; transition: color 280ms, border-color 280ms; }
+.academic-link:hover { color: var(--velox); border-color: var(--velox); }
+
+/* === Hover demo === */
+.hover-demo-grid { display: grid; gap: 3rem; align-items: center; padding-top: 4rem; border-top: 1px solid var(--line); margin-top: 4rem; }
+@media (min-width: 768px) { .hover-demo-grid { grid-template-columns: repeat(12, 1fr); } }
+.hover-demo-left { grid-column: span 12; }
+@media (min-width: 768px) { .hover-demo-left { grid-column: span 5; } }
+.hover-demo-frame { aspect-ratio: 1; background: var(--paper); border: 1px solid var(--line); padding: 3rem; display: flex; align-items: center; justify-content: center; position: relative; }
+.hover-demo-frame .corner-tl, .hover-demo-frame .corner-bl { position: absolute; font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ash); }
+.hover-demo-frame .corner-tl { top: 1rem; right: 1rem; }
+.hover-demo-frame .corner-bl { bottom: 1rem; left: 1rem; color: var(--rust); }
+.hover-demo-right { grid-column: span 12; }
+@media (min-width: 768px) { .hover-demo-right { grid-column: span 6; grid-column-start: 7; } }
+.hover-demo-right h3 { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(32px, 4.5vw, 56px); line-height: 0.94; letter-spacing: -0.03em; margin: 1rem 0 1.5rem; }
+.hover-demo-right h3 em { font-style: italic; }
+.hover-demo-right p:first-of-type { font-size: 1.0625rem; line-height: 1.6; margin-bottom: 1rem; }
+
+/* === MAGAZINE (dark) === */
+.mag-header { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(245,242,234,0.2); margin-bottom: 3rem; flex-wrap: wrap; gap: 0.5rem; }
+.mag-header > * { font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.18em; color: rgba(245,242,234,0.5); text-transform: uppercase; }
+.mag-header .issue { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.5rem; color: var(--paper); text-transform: none; letter-spacing: -0.01em; }
+.mag-grid { display: grid; gap: 3rem; }
+@media (min-width: 768px) { .mag-grid { grid-template-columns: repeat(12, 1fr); } }
+.mag-left { grid-column: span 12; }
+@media (min-width: 768px) { .mag-left { grid-column: span 7; } }
+.mag-left h2 { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(48px, 9vw, 140px); line-height: 0.86; letter-spacing: -0.05em; margin-top: 1.5rem; }
+.mag-left h2 sup { color: var(--velox); font-size: 0.6em; }
+.mag-left .quote { font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; font-size: 1.125rem; color: rgba(245,242,234,0.8); margin-top: 1.5rem; }
+.mag-left .footnote-mag { font-family: ui-monospace, monospace; font-size: 12px; color: rgba(245,242,234,0.4); margin-top: 0.75rem; }
+.mag-left .footnote-mag sup { color: var(--velox); }
+.mag-right { grid-column: span 12; padding-top: 2rem; }
+@media (min-width: 768px) { .mag-right { grid-column: span 4; grid-column-start: 9; padding-top: 3rem; } }
+.mag-right p { color: rgba(245,242,234,0.7); line-height: 1.6; margin-bottom: 1.5rem; font-size: 1.0625rem; }
+.mag-right .author { font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.2em; color: rgba(245,242,234,0.4); text-transform: uppercase; margin-top: 3rem; }
+
+/* === BENEFITS === */
+.benefits-header { display: grid; gap: 3rem; margin-bottom: 5rem; }
+@media (min-width: 768px) { .benefits-header { grid-template-columns: repeat(12, 1fr); } }
+.benefits-header > div:first-child { grid-column: span 12; }
+@media (min-width: 768px) { .benefits-header > div:first-child { grid-column: span 5; } }
+.benefits-header h2 { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(40px, 6vw, 90px); line-height: 0.94; letter-spacing: -0.04em; margin-top: 1.5rem; }
+.benefits-header h2 em { color: var(--velox); font-style: italic; }
+.benefits-header > div:last-child { grid-column: span 12; padding-top: 3rem; }
+@media (min-width: 768px) { .benefits-header > div:last-child { grid-column: span 6; grid-column-start: 7; } }
+.benefits-header > div:last-child p { font-size: 1.125rem; color: var(--steel); line-height: 1.6; }
+
+.benefits-grid { display: grid; gap: 0 4rem; }
+@media (min-width: 768px) { .benefits-grid { grid-template-columns: 1fr 1fr; } }
+.benefit-card { border-top: 1px solid var(--ink); padding: 2rem 0; transition: padding-left 380ms; }
+.benefit-card:hover { padding-left: 1.5rem; }
+.benefit-num { font-family: 'Fraunces', serif; font-style: italic; font-size: 14px; color: var(--rust); margin-bottom: 0.5rem; }
+.benefit-card h3 { font-family: 'Fraunces', serif; font-weight: 400; font-size: 1.875rem; line-height: 1.1; margin-bottom: 0.75rem; }
+.benefit-card p { color: var(--steel); line-height: 1.6; }
+
+/* === REVIEWS === */
+.reviews-grid { display: grid; gap: 1.5rem; }
+@media (min-width: 768px) { .reviews-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .reviews-grid { grid-template-columns: 1fr 1fr 1fr; } }
+.review-card { background: var(--light); border: 1px solid var(--line); padding: 2rem; position: relative; transition: transform 280ms; }
+.review-card.skew-1 { transform: rotate(-1deg); }
+.review-card.skew-pos { transform: rotate(0.8deg); }
+.review-card::before { content: ''; position: absolute; top: -1px; left: -1px; right: -1px; height: 4px; background: var(--velox); transform: scaleX(0); transform-origin: left; transition: transform 580ms cubic-bezier(.4,0,.2,1); }
+.review-card:hover::before { transform: scaleX(1); }
+.stars { color: var(--velox); letter-spacing: 0.15em; font-size: 14px; margin-bottom: 1rem; }
+.stars .empty { color: var(--ash); }
+.review-card .quote { font-family: 'Fraunces', serif; font-weight: 400; font-size: 1.25rem; line-height: 1.32; margin-bottom: 1.5rem; }
+.review-card .quote em { font-style: italic; }
+.review-card .author { border-top: 1px solid var(--line); padding-top: 1rem; }
+.review-card .author p:first-of-type { font-size: 0.875rem; font-weight: 600; }
+.review-card .author p:nth-of-type(2) { font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--ash); text-transform: uppercase; margin-top: 0.25rem; }
+
+/* === COMPARISON TABLE === */
+.compare-wrap { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+.compare-header { text-align: center; margin-bottom: 4rem; }
+.compare-header h2 { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(40px, 6vw, 90px); line-height: 0.94; letter-spacing: -0.04em; margin-top: 1.5rem; }
+.compare-header h2 em { color: var(--velox); font-style: italic; }
+.compare-table { border-top: 2px solid var(--ink); }
+.compare-row { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 1rem; padding: 1rem 0.5rem; border-bottom: 1px solid var(--line); align-items: center; font-size: 0.875rem; }
+@media (max-width: 767px) { .compare-row { grid-template-columns: 1fr 1fr; gap: 0.5rem; padding: 0.75rem 0.5rem; font-size: 0.8125rem; } .compare-row > div:first-child { grid-column: span 2; font-weight: 600; } }
+.compare-row.head { border-bottom: 2px solid var(--ink); padding: 1.5rem 0.5rem; }
+.compare-row.head .tier { text-align: center; }
+.compare-row.head .tier-name { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 500; }
+.compare-row.head .tier-name.gold { color: var(--velox); }
+.compare-row.head .tier-price { font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--ash); margin-top: 0.25rem; text-transform: uppercase; }
+.compare-row .label { font-weight: 600; }
+.compare-cell { text-align: center; font-family: ui-monospace, monospace; font-size: 0.8125rem; }
+.compare-cell.gold { color: var(--velox); }
+.check { color: var(--velox); font-weight: 700; }
+.cross { color: var(--ash); }
+.compare-footnote { font-family: ui-monospace, monospace; font-size: 10px; color: var(--ash); letter-spacing: 0.18em; text-align: center; margin-top: 2rem; text-transform: uppercase; }
+
+/* === ACADEMIC === */
+.academic-grid { display: grid; gap: 2rem; margin-bottom: 3rem; }
+@media (min-width: 768px) { .academic-grid { grid-template-columns: repeat(12, 1fr); } }
+.academic-grid > div:first-child { grid-column: span 3; font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.18em; color: rgba(245,242,234,0.5); text-transform: uppercase; }
+.academic-grid > div:last-child { grid-column: span 9; }
+.academic-title-grid { display: grid; gap: 2rem; margin-bottom: 4rem; }
+@media (min-width: 768px) { .academic-title-grid { grid-template-columns: repeat(12, 1fr); } }
+.academic-title-grid h2 { grid-column: span 9; font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(36px, 5vw, 68px); line-height: 0.96; letter-spacing: -0.03em; }
+.academic-title-grid h2 em { font-style: italic; }
+.academic-eyebrow { grid-column: span 3; font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--velox); text-transform: uppercase; }
+.academic-grid .author-list { color: rgba(245,242,234,0.9); font-family: 'Fraunces', serif; font-style: italic; font-size: 1rem; font-weight: 300; }
+.academic-grid .affil { color: rgba(245,242,234,0.7); line-height: 1.6; font-size: 0.875rem; }
+.academic-grid .artifacts { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+.academic-grid .artifacts a { color: var(--paper); border-color: rgba(245,242,234,0.5); }
+.academic-grid .abstract { color: rgba(245,242,234,0.85); font-family: 'Fraunces', serif; font-weight: 300; font-size: 1.125rem; line-height: 1.6; }
+.academic-grid .ack { color: rgba(245,242,234,0.7); line-height: 1.6; font-size: 0.875rem; }
+.bibtex { font-family: ui-monospace, monospace; font-size: 12px; background: #000; color: var(--paper); padding: 1.5rem; line-height: 1.7; overflow-x: auto; border-radius: 2px; }
+
+/* === CTA REVEAL === */
+.cta-reveal { padding: 7rem 0; text-align: center; }
+@media (min-width: 768px) { .cta-reveal { padding: 10rem 0; } }
+.cta-reveal h2 { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(40px, 7vw, 100px); line-height: 0.92; letter-spacing: -0.04em; margin: 2rem 0 2rem; }
+.cta-reveal h2 em { color: var(--velox); font-style: italic; }
+.cta-reveal .lead { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(20px, 2.5vw, 30px); line-height: 1.4; max-width: 700px; margin: 0 auto 2rem; }
+.cta-reveal .lead em { font-style: italic; }
+.cta-reveal .body { font-size: 1.0625rem; color: var(--steel); max-width: 600px; margin: 0 auto 3rem; line-height: 1.6; }
+.cta-reveal .ctas { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 3rem; }
+.cta-reveal .footer-line { font-family: ui-monospace, monospace; font-size: 11px; color: var(--ash); letter-spacing: 0.2em; max-width: 600px; margin: 2rem auto 0; line-height: 1.7; text-transform: uppercase; }
+
+/* === FOOTER === */
+footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; position: relative; overflow: hidden; }
+.footer-mega { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(108px, 22vw, 320px); line-height: 0.85; letter-spacing: -0.06em; color: var(--paper); margin-bottom: 3rem; }
+.footer-divider { border-top: 1px solid rgba(245,242,234,0.2); padding-top: 3rem; }
+.footer-grid { display: grid; gap: 3rem; margin-bottom: 4rem; }
+@media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(4, 1fr); } }
+.footer-col p:first-of-type { font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.2em; color: rgba(245,242,234,0.5); text-transform: uppercase; margin-bottom: 1rem; }
+.footer-col p:nth-of-type(2) { font-size: 0.875rem; line-height: 1.6; color: var(--paper); }
+.footer-bottom { border-top: 1px solid rgba(245,242,234,0.2); padding-top: 2rem; display: flex; flex-direction: column; gap: 1rem; justify-content: space-between; align-items: flex-start; }
+@media (min-width: 768px) { .footer-bottom { flex-direction: row; align-items: center; } }
+.footer-bottom > p { font-family: ui-monospace, monospace; font-size: 10px; color: rgba(245,242,234,0.4); letter-spacing: 0.18em; text-transform: uppercase; }
+.footer-bottom .links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.footer-bottom .links a { font-family: ui-monospace, monospace; font-size: 10px; color: rgba(245,242,234,0.4); letter-spacing: 0.18em; text-transform: uppercase; transition: color 250ms; }
+.footer-bottom .links a:hover { color: var(--velox); }
+
+/* === Reduced motion === */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.2s !important; }
+  .cursor, .cursor-dot { display: none !important; }
+  html { cursor: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor (desktop only) -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursor-dot"></div>
+
+<!-- ============================================= NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo" aria-label="VELOX home">
+    <svg width="20" height="20" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <path d="M28 8 C28 6 26 4 24 4 L12 4 C8 4 4 8 4 12 L4 28 C4 32 8 36 12 36 L24 36 C28 36 32 32 32 28 L32 16 C32 14 30 12 28 12 L20 12 L20 20" stroke="#0E0E0E" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span>VELOX</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features" class="nav-link">Features</a>
+    <a href="#benefits" class="nav-link">Benefits</a>
+    <a href="#reviews" class="nav-link">Reviews</a>
+    <a href="#variants" class="nav-link">Models</a>
+    <a href="#academic" class="nav-link">Paper</a>
+  </div>
+  <a href="#cta" class="btn btn-velox nav-cta" style="padding: 0.75rem 1.5rem; font-size: 9px;">Pre-Order <span class="btn-arrow"></span></a>
+</nav>
+
+<!-- ============================================= HERO -->
+<section class="hero grain-bg">
+  <div class="wrap">
+    <div class="hero-meta">
+      <span>ARX LABS · 2026</span>
+      <span>VELOX-1 · 1.0.0-RELEASE</span>
+      <span class="hidden md:inline">SHIPPING WORLDWIDE</span>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-headline">
+        <h1>Made for paper.<br>Built for <em>workflow.</em></h1>
+      </div>
+      <div class="hero-meta-credit">
+        <p>DESIGNED BY</p>
+        <p class="agency serif">ARX Labs</p>
+        <p>awarded studio · 2026</p>
+      </div>
+    </div>
+
+    <div class="hero-sub-row">
+      <div class="hero-sub-text">
+        <p>The world's first AI-optimized paper clip. Designed to <em>bind, organize, and persist</em> in all the right ways.</p>
+      </div>
+      <div class="paperclip-hero">
+        <div class="paperclip-container">
+          <svg class="paperclip-anim" width="160" height="220" viewBox="0 0 200 280" fill="none" aria-hidden="true">
+            <path d="M50 30 Q50 10 70 10 L140 10 Q160 10 160 30 L160 220 Q160 250 130 250 L70 250 Q40 250 40 220 L40 60 Q40 40 60 40 L130 40 Q150 40 150 60 L150 200 Q150 220 130 220 L80 220 Q60 220 60 200 L60 80 Q60 60 80 60 L120 60" stroke="#0E0E0E" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M50 30 Q50 10 70 10 L140 10 Q160 10 160 30 L160 220 Q160 250 130 250 L70 250 Q40 250 40 220 L40 60 Q40 40 60 40 L130 40 Q150 40 150 60 L150 200 Q150 220 130 220 L80 220 Q60 220 60 200 L60 80 Q60 60 80 60 L120 60" stroke="#D4571E" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.4"/>
+          </svg>
+          <span class="paperclip-caption">FIG.001 · ACTUAL SIZE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-cta-row">
+      <div class="hero-ctas">
+        <a href="#cta" class="btn btn-velox">Pre-order <span class="btn-arrow"></span></a>
+        <a href="#features" class="btn btn-primary">See features</a>
+      </div>
+      <div class="hero-pricing">
+        <div>
+          <p class="label">STARTING AT</p>
+          <p class="value serif">$1,247<span class="small">/box</span></p>
+        </div>
+        <div>
+          <p class="label">DELIVERY</p>
+          <p class="value serif">Q3 2027</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================= MARQUEE -->
+<section class="marquee-section" style="padding: 2rem 0;">
+  <div class="marquee-track">
+    <span class="marquee-item">VELOX-1</span>
+    <span class="marquee-item dot">●</span>
+    <span class="marquee-item">Trained on 10M scenarios</span>
+    <span class="marquee-item dot">●</span>
+    <span class="marquee-item">SOTA wire geometry</span>
+    <span class="marquee-item dot">●</span>
+    <span class="marquee-item">VELOX-1</span>
+    <span class="marquee-item dot">●</span>
+    <span class="marquee-item">Trained on 10M scenarios</span>
+    <span class="marquee-item dot">●</span>
+    <span class="marquee-item">SOTA wire geometry</span>
+    <span class="marquee-item dot">●</span>
+  </div>
+</section>
+
+<!-- ============================================= NARRATIVE -->
+<section class="grain-bg">
+  <div class="wrap-narrow">
+    <p class="eyebrow narr-eyebrow">— A NEW PARADIGM</p>
+    <h2 class="narr-headline">VELOX-1 isn't <em>just</em> a paper clip.</h2>
+    <p class="narr-body">It's the result of unprecedented AI<sup>*</sup> breakthroughs in wire-bent geometry, structural memory retention, and convergent instrumental binding.</p>
+    <p class="footnote"><sup>*</sup>Adobe Illustrator</p>
+  </div>
+</section>
+
+<!-- ============================================= FEATURE -->
+<section id="features" class="bg-light grain-bg" style="border-top: 1px solid var(--line);">
+  <div class="wrap">
+
+    <div class="feat-grid">
+      <div class="feat-left">
+        <p class="eyebrow narr-eyebrow">FEATURE 01</p>
+        <h2>The first<br><em>open-weight</em><br>paper clip.</h2>
+      </div>
+      <div class="feat-right">
+        <p>Released as <span class="mono" style="font-size: 1rem;">.OBJ</span> on GitHub. Train your own variant. Fork the geometry. Push to production. The first paper clip with a v1.0 release tag.</p>
+        <p>Architecture: 18AWG · single-piece galvanized steel · 3.2gsm tensile wire · zero seams · bidirectional torque distribution.</p>
+        <a href="#academic" class="academic-link">→ READ THE PAPER (PDF · 47 PAGES)</a>
+      </div>
+    </div>
+
+    <div class="hover-demo-grid">
+      <div class="hover-demo-left paperclip-container">
+        <div class="hover-demo-frame grain-bg">
+          <svg class="paperclip-anim" width="60%" height="60%" viewBox="0 0 200 280" fill="none" aria-hidden="true">
+            <path d="M50 30 Q50 10 70 10 L140 10 Q160 10 160 30 L160 220 Q160 250 130 250 L70 250 Q40 250 40 220 L40 60 Q40 40 60 40 L130 40 Q150 40 150 60 L150 200 Q150 220 130 220 L80 220 Q60 220 60 200 L60 80 Q60 60 80 60 L120 60" stroke="#0E0E0E" stroke-width="3" stroke-linecap="round" fill="none"/>
+          </svg>
+          <span class="corner-tl">SCALE 1:1</span>
+          <span class="corner-bl">→ TRY HOVERING ME</span>
+        </div>
+      </div>
+      <div class="hover-demo-right">
+        <p class="eyebrow narr-eyebrow">INTERACTIVE DEMO</p>
+        <h3>It hovers <em>just right</em>.</h3>
+        <p>We benchmarked VELOX-1's hover responsiveness against industry standards. Our internal A/B testing across 47,000 cursor approaches yielded a 99.3% satisfaction rate among Senior Cursor Engineers.</p>
+        <p style="font-family: ui-monospace, monospace; font-size: 12px; color: var(--ash); letter-spacing: 0.18em; text-transform: uppercase;">BASELINE: STANDARD PAPER CLIP · 71% SATISFACTION (n=82,000)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================= MAGAZINE -->
+<section class="bg-ink grain-bg">
+  <div class="wrap">
+    <div class="mag-header">
+      <p>ARX QUARTERLY</p>
+      <span class="issue">Issue No. 0047</span>
+      <p>FALL · 2026</p>
+    </div>
+
+    <div class="mag-grid">
+      <div class="mag-left">
+        <p class="eyebrow" style="color: var(--velox);">FEATURE STORY</p>
+        <h2>AI is taking<br>everyone's jobs<sup>†</sup></h2>
+        <p class="quote">...and replacing them with paper clips.</p>
+        <p class="footnote-mag"><sup>†</sup>Estimated 2-7% of office tasks. Source: vibes.</p>
+      </div>
+      <div class="mag-right">
+        <p>By 2027, an estimated 4 in 5 documents will be bound by AI-trained wire geometries. The paper clip industry, valued at $4.7B globally, faces the most significant restructuring since 1899.</p>
+        <p>ARX Labs is leading this transition with VELOX-1 — the first paper clip to ship with peer-reviewed credentials.</p>
+        <p class="author">— DR. MAYA TENZIN · LEAD ARCHITECT</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================= BENEFITS -->
+<section id="benefits">
+  <div class="wrap">
+
+    <div class="benefits-header">
+      <div>
+        <p class="eyebrow narr-eyebrow">02 · BENEFITS</p>
+        <h2>Six reasons.<br>One <em>paper clip.</em></h2>
+      </div>
+      <div>
+        <p>Each VELOX-1 specimen passes 47 quality gates before leaving the Maranello assembly line. Below: the six metrics that matter, scored against industry baseline.</p>
+      </div>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <p class="benefit-num italic">01 / Lift</p>
+        <h3>94.2% pickup probability</h3>
+        <p>VELOX-1 stays where you place it. Confirmed across 12,000 desk surface configurations including marble, oak, and synthetic polymers.</p>
+      </div>
+      <div class="benefit-card">
+        <p class="benefit-num italic">02 / Thermodynamic Stability</p>
+        <h3>−40°C to +180°C operational</h3>
+        <p>Tested in cryogenic chambers and convection ovens. Wire memory retention: 96%. Edge case: VELOX-1 outperforms standard clips during summer commutes by 23%.</p>
+      </div>
+      <div class="benefit-card">
+        <p class="benefit-num italic">03 / Circularity</p>
+        <h3>Single-piece geometry</h3>
+        <p>Zero welds, zero seams, zero compromise. The entire VELOX-1 chassis is one continuous wire. Forged in Italy. Bent in Germany. Inspected by humans.</p>
+      </div>
+      <div class="benefit-card">
+        <p class="benefit-num italic">04 / Grip</p>
+        <h3>47kg binding strength</h3>
+        <p>A standard VELOX-1 holds the equivalent of 9,400 sheets of A4 80gsm paper before structural fatigue. We do not recommend reaching this limit.</p>
+      </div>
+      <div class="benefit-card">
+        <p class="benefit-num italic">05 / Sustainability</p>
+        <h3>100% recycled steel</h3>
+        <p>Each VELOX-1 contains atoms previously found in office buildings, vintage typewriters, and at least one Cold War-era submarine. Provenance NFT included.</p>
+      </div>
+      <div class="benefit-card">
+        <p class="benefit-num italic">06 / Power Draw</p>
+        <h3>0.0 watts continuous</h3>
+        <p>VELOX-1 operates entirely passively. No firmware updates. No cloud subscriptions. No batteries. No internet connection required, ever. Truly offline-first.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================= REVIEWS -->
+<section id="reviews" class="bg-light grain-bg" style="border-top: 1px solid var(--line);">
+  <div class="wrap">
+
+    <div class="benefits-header">
+      <div>
+        <p class="eyebrow narr-eyebrow">03 · WHAT THEY'RE SAYING</p>
+        <h2>Five stars,<br><em>five professionals.</em></h2>
+      </div>
+      <div>
+        <p>Independently sourced from VELOX-1 early access cohort. None of these people exist.</p>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card skew-1">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Bound my novel manuscript in 1973. Forgot it in a drawer. Found it last week. Manuscript intact. VELOX-1 still gripping. Time itself bent around it."</p>
+        <div class="author">
+          <p>Margaret Voss</p>
+          <p>UNPUBLISHED NOVELIST · 51 YEARS</p>
+        </div>
+      </div>
+      <div class="review-card skew-pos">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"I tried to bend a VELOX-1 into a lock pick. The wire bent <em>me</em>. Now I work in compliance. Highly recommend."</p>
+        <div class="author">
+          <p>Anton K.</p>
+          <p>FORMER LOCKSMITH · CURRENT CPA</p>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★<span class="empty">★</span></div>
+        <p class="quote">"I asked our LLM if VELOX-1 was sentient. It said 'no.' I do not believe it. Removed half a star for plausible deniability."</p>
+        <div class="author">
+          <p>Dr. Yann LeCunha (no relation)</p>
+          <p>AI SAFETY RESEARCHER · STANFORD-ADJACENT</p>
+        </div>
+      </div>
+      <div class="review-card skew-pos">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"I've spent 30 years looking for the perfect office object. I have found three: my chair, my mug, and now VELOX-1. The trinity is complete."</p>
+        <div class="author">
+          <p>Hiroshi Tanaka</p>
+          <p>PROFESSIONAL ORGANIZER · KYOTO</p>
+        </div>
+      </div>
+      <div class="review-card skew-1">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"VELOX-1 binds papers. I bind realities. Together, we are unstoppable. Also it works on USB-C cables somehow."</p>
+        <div class="author">
+          <p>The Quantum Cat</p>
+          <p>SUPERPOSITIONED · SCHRÖDINGER LABS</p>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"I held a VELOX-1 to my ear and heard the sea. I held it to a quarterly report and heard <em>truth</em>. 10/10 would acquire again."</p>
+        <div class="author">
+          <p>Reginald Worthington III</p>
+          <p>SOMETHING IN FINANCE · LIVES IN GREENWICH</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================= COMPARISON -->
+<section id="variants" class="grain-bg">
+  <div class="compare-wrap">
+    <div class="compare-header">
+      <p class="eyebrow narr-eyebrow">04 · MODELS</p>
+      <h2>Three tiers.<br><em>One geometry.</em></h2>
+    </div>
+
+    <div class="compare-table">
+      <div class="compare-row head">
+        <div></div>
+        <div class="tier"><p class="tier-name serif">VELOX-1</p><p class="tier-price">$1,247 / box</p></div>
+        <div class="tier"><p class="tier-name serif">VELOX Pro</p><p class="tier-price">$3,499 / box</p></div>
+        <div class="tier"><p class="tier-name serif gold">VELOX Pro Max</p><p class="tier-price" style="color: var(--velox);">$11,800 / box</p></div>
+      </div>
+
+      <div class="compare-row"><div class="label">Binding strength</div><div class="compare-cell">47 kg</div><div class="compare-cell">94 kg</div><div class="compare-cell gold">Theoretically infinite</div></div>
+      <div class="compare-row"><div class="label">Wire material</div><div class="compare-cell">Galvanized steel</div><div class="compare-cell">Titanium-grade</div><div class="compare-cell gold">Single forged ingot</div></div>
+      <div class="compare-row"><div class="label">Open weights</div><div class="compare-cell"><span class="check">✓</span></div><div class="compare-cell"><span class="check">✓</span></div><div class="compare-cell"><span class="check">✓</span></div></div>
+      <div class="compare-row"><div class="label">Provenance NFT</div><div class="compare-cell"><span class="cross">—</span></div><div class="compare-cell"><span class="check">✓</span></div><div class="compare-cell"><span class="check">✓</span></div></div>
+      <div class="compare-row"><div class="label">Hand-engraved VIN</div><div class="compare-cell"><span class="cross">—</span></div><div class="compare-cell"><span class="cross">—</span></div><div class="compare-cell"><span class="check">✓</span></div></div>
+      <div class="compare-row"><div class="label">Authentication</div><div class="compare-cell">Email PDF</div><div class="compare-cell">Certificate</div><div class="compare-cell gold">Notarized · Maranello</div></div>
+      <div class="compare-row"><div class="label">Lifetime warranty</div><div class="compare-cell">10 years</div><div class="compare-cell">50 years</div><div class="compare-cell gold">Eternal·</div></div>
+      <div class="compare-row"><div class="label">Box quantity</div><div class="compare-cell">100 units</div><div class="compare-cell">100 units</div><div class="compare-cell gold">7 units</div></div>
+      <div class="compare-row" style="border-bottom: 2px solid var(--ink);">
+        <div></div>
+        <div class="compare-cell"><a href="#cta" class="btn btn-primary" style="padding: 0.875rem 1.25rem; font-size: 9px;">Pre-order</a></div>
+        <div class="compare-cell"><a href="#cta" class="btn btn-primary" style="padding: 0.875rem 1.25rem; font-size: 9px;">Pre-order</a></div>
+        <div class="compare-cell"><a href="#cta" class="btn btn-velox" style="padding: 0.875rem 1.25rem; font-size: 9px;">Reserve</a></div>
+      </div>
+    </div>
+
+    <p class="compare-footnote">·EXCLUDES HEAT DEATH OF UNIVERSE</p>
+  </div>
+</section>
+
+<!-- ============================================= ACADEMIC -->
+<section id="academic" class="bg-ink grain-bg">
+  <div class="wrap-narrow">
+
+    <div class="academic-title-grid">
+      <p class="academic-eyebrow">05 · RESEARCH</p>
+      <h2>On the Convergent Instrumental Goals of <em>Wire-Bent Geometries</em></h2>
+    </div>
+
+    <div class="academic-grid">
+      <div>AUTHORS</div>
+      <div class="author-list">Maya Tenzin¹ · Yan Lima² · Anonymous Reviewer #4³ · GPT-OSS-120B (consultant)</div>
+    </div>
+
+    <div class="academic-grid">
+      <div>AFFILIATIONS</div>
+      <div class="affil">¹ARX Labs, São Paulo · ²ARX Labs, São Paulo (also CEO) · ³University of Existential Risk, Oxford</div>
+    </div>
+
+    <div class="academic-grid">
+      <div>ARTIFACTS</div>
+      <div class="artifacts">
+        <a href="#" class="academic-link">→ PAPER (PDF · 47 PAGES)</a>
+        <a href="#" class="academic-link">→ MODEL (.OBJ · 12KB)</a>
+        <a href="#" class="academic-link">→ CODE (coming soon)</a>
+        <a href="#" class="academic-link">→ DATASET (10M scenarios)</a>
+        <a href="#" class="academic-link">→ REPL (interactive)</a>
+      </div>
+    </div>
+
+    <div class="academic-grid">
+      <div>ABSTRACT</div>
+      <div class="abstract">We present VELOX-1, a foundation paper clip pre-trained on 10M document binding scenarios collected via behavioral cloning of 47 Senior Office Managers across 12 metropolitan markets. Our wire-geometry transformer (WGT-9B) demonstrates emergent capability in load distribution, edge case adhesion, and cross-domain compatibility (paper, fabric, light cardboard). We open-source the model weights, geometry specifications (.OBJ), and 47-page peer-reviewed analysis under MIT-style license. Limitations: VELOX-1 cannot bind staples or hopes.</div>
+    </div>
+
+    <div class="academic-grid">
+      <div>ACKNOWLEDGEMENTS</div>
+      <div class="ack">We thank Nick Bostrom (hypothetically), the entire 1899 Connecticut paper clip cooperative, and the anonymous reviewer who suggested we "consider whether the paper clip needs to exist at all" — they were right, but here we are.</div>
+    </div>
+
+    <div class="academic-grid">
+      <div>BIBTEX</div>
+      <div><pre class="bibtex">@article{velox2026,
+  title    = {On the Convergent Instrumental Goals of Wire-Bent Geometries},
+  author   = {Tenzin, Maya and Lima, Yan and Anonymous#4 and GPT-OSS-120B},
+  journal  = {ARX Labs Technical Reports},
+  year     = {2026},
+  volume   = {1},
+  pages    = {1--47},
+  doi      = {10.0000/velox.2026.0001},
+  note     = {Open weights at github.com/arxlabs/velox-1},
+  abstract = {The first peer-reviewed paper clip.}
+}</pre></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================= CTA REVEAL -->
+<section id="cta" class="grain-bg cta-reveal">
+  <div class="wrap-narrow">
+    <p class="eyebrow narr-eyebrow">— THE REVEAL</p>
+    <h2>We caught your<br>attention with a <em>paper clip.</em></h2>
+    <p class="lead serif">Imagine what we'll do<br>with your <em>actual product.</em></p>
+    <p class="body">VELOX-1 is a satirical exercise by ARX Labs. The paper clip is real. The marketing is parody. The talent is for hire.</p>
+    <div class="ctas">
+      <a href="mailto:hello@arxlabs.com" class="btn btn-velox">Hire us <span class="btn-arrow"></span></a>
+      <a href="https://wa.me/5511950600756" target="_blank" rel="noopener" class="btn btn-primary">Talk on WhatsApp</a>
+    </div>
+    <p class="footer-line">ARX LABS · BRAND, STRATEGY, MARKETING, AND OCCASIONAL OFFICE SUPPLIES · SÃO PAULO · 2026</p>
+  </div>
+</section>
+
+<!-- ============================================= FOOTER -->
+<footer class="grain-bg">
+  <div class="wrap">
+    <h3 class="footer-mega serif">VELOX</h3>
+    <div class="footer-divider">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <p>Origin</p>
+          <p>A satirical project<br>by ARX Labs<br>São Paulo · 2026</p>
+        </div>
+        <div class="footer-col">
+          <p>Manufacturing</p>
+          <p>Wire bent in Italy<br>Assembled in Germany<br>Inspected by humans</p>
+        </div>
+        <div class="footer-col">
+          <p>Contact</p>
+          <p>hello@arxlabs.com<br>business@arxlabs.com<br>(+55) 11 95060-0756</p>
+        </div>
+        <div class="footer-col">
+          <p>Open source</p>
+          <p>github.com/arxlabs<br>arxiv.org/velox-1<br>papers · models · weights</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 ARX LABS · VELOX-1 IS FICTIONAL · TALENT IS NOT</p>
+        <div class="links">
+          <a href="#">PRIVACY</a>
+          <a href="#">TERMS</a>
+          <a href="#">PRESS</a>
+          <a href="#">SHARE</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  // Custom cursor (desktop only)
+  if (window.matchMedia('(min-width: 1024px) and (pointer: fine)').matches) {
+    var cursor = document.getElementById('cursor');
+    var cursorDot = document.getElementById('cursor-dot');
+    var mx = 0, my = 0, cx = 0, cy = 0;
+    document.addEventListener('mousemove', function(e){
+      mx = e.clientX; my = e.clientY;
+      if (cursorDot) cursorDot.style.transform = 'translate(' + (e.clientX - 2) + 'px, ' + (e.clientY - 2) + 'px)';
+    }, { passive: true });
+    function tick(){
+      cx += (mx - cx) * 0.18;
+      cy += (my - cy) * 0.18;
+      if (cursor) cursor.style.transform = 'translate(' + (cx - 7) + 'px, ' + (cy - 7) + 'px)';
+      requestAnimationFrame(tick);
+    }
+    tick();
+    document.querySelectorAll('a, button, .review-card, .benefit-card, .academic-link').forEach(function(el){
+      el.addEventListener('mouseenter', function(){ cursor.classList.add('hover'); });
+      el.addEventListener('mouseleave', function(){ cursor.classList.remove('hover'); });
+    });
+  }
+
+  // Nav scroll bg
+  var nav = document.getElementById('main-nav');
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if (!ticking) {
+      requestAnimationFrame(function(){
+        if (window.scrollY > 50) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Reveal on scroll (IntersectionObserver — native, lightweight)
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduced && 'IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.style.transition = 'opacity 700ms ease, transform 700ms cubic-bezier(.4,0,.2,1)';
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+
+    document.querySelectorAll('section > div').forEach(function(el){
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      observer.observe(el);
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

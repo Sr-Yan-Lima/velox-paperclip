@@ -367,6 +367,222 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
   .cursor, .cursor-dot { display: none !important; }
   html { cursor: auto; }
 }
+
+/* ================================================== */
+/* === MOBILE OPTIMIZATIONS · v2 ====================== */
+/* ================================================== */
+
+/* === Touch devices: kill desktop hover effects === */
+@media (hover: none), (pointer: coarse) {
+  .cursor, .cursor-dot { display: none !important; }
+  html { cursor: auto !important; }
+  .benefit-card:hover { padding-left: 0; }
+  .review-card.skew-1, .review-card.skew-pos { transform: none; }
+  .review-card:hover::before { transform: scaleX(0); }
+  .paperclip-container:hover .paperclip-anim { transform: none; }
+  .btn:hover { letter-spacing: 0.22em; }
+  .btn-primary:hover { background: var(--ink); color: var(--paper); }
+  .btn-velox:hover { background: var(--velox); color: var(--light); }
+}
+
+/* === Tablet & smaller (≤1023px) === */
+@media (max-width: 1023px) {
+  section { padding: 4rem 0; }
+  nav#main-nav { padding: 0.875rem 1rem; }
+  nav#main-nav.scrolled { padding: 0.625rem 1rem; }
+  .nav-logo span { font-size: 1.125rem; }
+}
+
+/* === Mobile (≤767px) === */
+@media (max-width: 767px) {
+  /* Reduce side padding for more content area */
+  .wrap, .wrap-narrow { padding: 0 1.25rem; }
+
+  /* Section spacing tighter */
+  section { padding: 3.5rem 0; }
+  section.hero { padding: 6rem 0 3.5rem; }
+  section.cta-reveal { padding: 5rem 0; }
+
+  /* Nav: hide CTA in nav (footer & hero have CTAs) */
+  nav#main-nav .nav-cta { display: none; }
+  nav#main-nav { padding: 0.75rem 1rem; }
+  .nav-logo svg { width: 18px; height: 18px; }
+  .nav-logo span { font-size: 1.0625rem; }
+
+  /* Hero meta strip: wrap properly */
+  .hero-meta { flex-wrap: wrap; gap: 0.5rem 1rem; margin-bottom: 2.5rem; font-size: 9px; }
+
+  /* Hero headline: smaller min for narrow viewports */
+  .hero-headline h1 { font-size: clamp(44px, 13vw, 72px); line-height: 0.92; }
+
+  /* Hero credit row: align nicely on mobile */
+  .hero-meta-credit { padding-bottom: 0; padding-top: 0.5rem; }
+  .hero-meta-credit .agency { font-size: 1.25rem; }
+
+  /* Hero subtext */
+  .hero-sub-row { margin-top: 2rem; gap: 1.5rem; }
+  .hero-sub-text p { font-size: 1.125rem; line-height: 1.45; }
+
+  /* Paperclip hero: center & smaller */
+  .paperclip-hero { padding-top: 0; }
+  .paperclip-hero .paperclip-container svg { width: 110px; height: auto; }
+  .paperclip-caption { left: -2rem; top: -0.5rem; font-size: 9px; }
+
+  /* Hero CTAs: stack with full width */
+  .hero-cta-row { margin-top: 2.5rem; gap: 1.5rem; }
+  .hero-ctas { flex-direction: column; gap: 0.75rem; width: 100%; }
+  .hero-ctas .btn { width: 100%; justify-content: center; padding: 1rem 1.5rem; }
+  .hero-pricing { gap: 1.5rem; justify-content: space-between; }
+  .hero-pricing .label { font-size: 9px; }
+  .hero-pricing .value { font-size: 1.5rem; }
+
+  /* Marquee: smaller font and faster on mobile */
+  .marquee-item { font-size: clamp(32px, 9vw, 48px); }
+  .marquee-section { padding: 1.25rem 0; }
+
+  /* Narrative section: tighter */
+  .narr-headline { font-size: clamp(40px, 11vw, 64px); margin: 1rem 0 1rem; }
+  .narr-body { font-size: 1.125rem; line-height: 1.45; }
+
+  /* Feature 01: stack and shrink */
+  .feat-grid { gap: 2rem; margin-bottom: 3rem; }
+  .feat-left h2 { font-size: clamp(36px, 11vw, 56px); margin-top: 1rem; }
+  .feat-right { padding-top: 0; }
+  .feat-right p:first-of-type { font-size: 1.0625rem; }
+
+  /* Hover demo: tighter frame */
+  .hover-demo-grid { padding-top: 2.5rem; margin-top: 2.5rem; gap: 2rem; }
+  .hover-demo-frame { padding: 2rem; }
+  .hover-demo-frame .corner-tl, .hover-demo-frame .corner-bl { font-size: 9px; }
+  .hover-demo-right h3 { font-size: clamp(28px, 8vw, 42px); }
+
+  /* Magazine spread: wrap header & shrink headline */
+  .mag-header { flex-wrap: wrap; gap: 0.5rem; }
+  .mag-header .issue { width: 100%; order: -1; font-size: 1.25rem; }
+  .mag-left h2 { font-size: clamp(40px, 12vw, 72px); line-height: 0.92; }
+  .mag-left .quote { font-size: 1rem; }
+  .mag-right { padding-top: 1.5rem; }
+  .mag-right p { font-size: 1rem; }
+
+  /* Benefits: stack & tighter */
+  .benefits-header { gap: 1.5rem; margin-bottom: 3rem; }
+  .benefits-header h2 { font-size: clamp(36px, 11vw, 56px); margin-top: 1rem; }
+  .benefits-header > div:last-child { padding-top: 1rem; }
+  .benefits-grid { gap: 0; }
+  .benefit-card { padding: 1.5rem 0; }
+  .benefit-card h3 { font-size: 1.5rem; }
+
+  /* Reviews: single column, no skew */
+  .reviews-grid { gap: 1rem; }
+  .review-card { padding: 1.5rem; }
+  .review-card.skew-1, .review-card.skew-pos { transform: none; }
+  .review-card .quote { font-size: 1.0625rem; line-height: 1.4; }
+
+  /* === Comparison table: redesign for mobile (card-stack layout) === */
+  .compare-table { border-top: none; }
+  .compare-row { display: block; padding: 0; border-bottom: none; margin-bottom: 1rem; }
+  .compare-row.head { display: none; }
+  .compare-row > div:first-child { display: none; }
+  /* Show label as data-attribute trick: actually we need to inject the field name; instead, reformat via wrapper */
+  .compare-row {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 1rem;
+  }
+  .compare-row > div:first-child {
+    display: block;
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.5rem;
+  }
+  .compare-row .compare-cell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(217,213,203,0.5);
+    font-size: 0.8125rem;
+  }
+  .compare-row .compare-cell:last-child { border-bottom: none; }
+  .compare-row .compare-cell::before {
+    content: attr(data-tier);
+    color: var(--ash);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  /* On the last row (CTA buttons) the label divs are empty, restore them */
+  .compare-row:last-child > div:first-child { display: none; }
+  .compare-row:last-child {
+    border: none; background: transparent; padding: 0;
+  }
+  .compare-row:last-child .compare-cell {
+    display: flex; justify-content: stretch; padding: 0.5rem 0; border: none;
+  }
+  .compare-row:last-child .compare-cell::before { display: none; }
+  .compare-row:last-child .compare-cell .btn { width: 100%; justify-content: center; }
+
+  .compare-header h2 { font-size: clamp(36px, 11vw, 56px); }
+  .compare-footnote { margin-top: 1rem; font-size: 9px; }
+
+  /* Academic section */
+  .academic-title-grid { margin-bottom: 2.5rem; gap: 1rem; }
+  .academic-title-grid h2 { font-size: clamp(28px, 8vw, 44px); }
+  .academic-eyebrow { margin-bottom: 0.5rem; }
+  .academic-grid { gap: 0.75rem; margin-bottom: 2rem; }
+  .academic-grid > div:first-child { font-size: 9px; }
+  .academic-grid .author-list { font-size: 0.9375rem; }
+  .academic-grid .abstract { font-size: 1rem; }
+  .academic-grid .artifacts { gap: 1rem; flex-direction: column; }
+  .academic-grid .artifacts a { font-size: 11px; }
+  .bibtex { font-size: 11px; padding: 1rem; line-height: 1.6; word-break: break-word; white-space: pre-wrap; }
+
+  /* CTA reveal */
+  .cta-reveal h2 { font-size: clamp(36px, 11vw, 64px); margin: 1.25rem 0 1.5rem; }
+  .cta-reveal .lead { font-size: 1.125rem; line-height: 1.45; }
+  .cta-reveal .body { font-size: 0.9375rem; }
+  .cta-reveal .ctas { gap: 0.75rem; flex-direction: column; }
+  .cta-reveal .ctas .btn { width: 100%; justify-content: center; padding: 1rem 1.5rem; }
+  .cta-reveal .footer-line { font-size: 9px; line-height: 1.8; padding: 0 0.5rem; }
+
+  /* Footer */
+  footer { padding: 3rem 0 2rem; }
+  .footer-mega { font-size: clamp(64px, 22vw, 140px); margin-bottom: 2rem; line-height: 0.85; }
+  .footer-divider { padding-top: 2rem; }
+  .footer-grid { gap: 2rem; margin-bottom: 2.5rem; }
+  .footer-col p:nth-of-type(2) { font-size: 0.8125rem; }
+  .footer-bottom { padding-top: 1.5rem; }
+  .footer-bottom > p { font-size: 9px; }
+  .footer-bottom .links a { font-size: 9px; }
+
+  /* Buttons: better tap area */
+  .btn { padding: 0.875rem 1.5rem; font-size: 10.5px; letter-spacing: 0.18em; gap: 0.5rem; }
+  .btn-arrow { width: 16px; }
+}
+
+/* === Tiny phones (≤375px) === */
+@media (max-width: 375px) {
+  .wrap, .wrap-narrow { padding: 0 1rem; }
+  .hero-headline h1 { font-size: clamp(38px, 12vw, 56px); }
+  .footer-mega { font-size: clamp(56px, 22vw, 110px); }
+  .compare-row { padding: 0.875rem; }
+  .narr-headline { font-size: clamp(36px, 11vw, 56px); }
+  .mag-left h2 { font-size: clamp(36px, 12vw, 64px); }
+  nav#main-nav { padding: 0.625rem 0.875rem; }
+  .nav-logo span { font-size: 1rem; }
+}
+
+/* === Landscape phones (low-height) === */
+@media (max-height: 500px) and (orientation: landscape) {
+  section.hero { padding: 5rem 0 3rem; }
+  .hero-headline h1 { font-size: clamp(40px, 8vw, 80px); }
+}
 </style>
 </head>
 <body>
@@ -856,6 +1072,24 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
       observer.observe(el);
     });
   }
+
+  // Mobile compare table: inject data-tier from header into each cell
+  // (used by mobile CSS to label values with tier names in card layout)
+  (function injectCompareTiers(){
+    var tierEls = document.querySelectorAll('.compare-row.head .tier .tier-name');
+    if (tierEls.length !== 3) return;
+    var tierNames = Array.prototype.map.call(tierEls, function(el){ return el.textContent.trim(); });
+    document.querySelectorAll('.compare-table .compare-row:not(.head)').forEach(function(row){
+      var cells = row.querySelectorAll('.compare-cell');
+      cells.forEach(function(cell, i){
+        if (tierNames[i]) cell.setAttribute('data-tier', tierNames[i]);
+      });
+    });
+  })();
+
+  // Mobile compare table: rewrite the mobile-only label header from .label div
+  // (the first cell is the row label · we need it visible only as header in mobile)
+  // Already handled via CSS "display: block" on .compare-row > div:first-child
 })();
 </script>
 

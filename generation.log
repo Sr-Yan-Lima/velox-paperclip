@@ -1,0 +1,89 @@
+[00:33:14] 🚀 START · 13 images · max parallel=5
+[00:33:14] 🎨 START hero/02-hero-cinematic.png (21:9)
+[00:33:14] 🎨 START hero/03-detail-curve.png (4:3)
+[00:33:14] 🎨 START personas/anton-locksmith.png (1:1)
+[00:33:14] 🎨 START personas/margaret-voss.png (1:1)
+[00:33:14] 🎨 START personas/yann-researcher.png (1:1)
+[00:33:15] ❌ TIMEOUT hero/02-hero-cinematic.png (status=429)
+[00:33:15] ❌ TIMEOUT hero/03-detail-curve.png (status=429)
+[00:33:15] ❌ TIMEOUT personas/anton-locksmith.png (status=429)
+[00:33:15] ❌ TIMEOUT personas/margaret-voss.png (status=429)
+[00:33:19] ✅ DONE personas/yann-researcher.png · 1371 KB
+[00:33:19] 🎨 START personas/hiroshi-organizer.png (1:1)
+[00:33:19] ❌ TIMEOUT personas/hiroshi-organizer.png (status=429)
+[00:33:19] 🎨 START personas/quantum-cat.png (1:1)
+[00:33:20] ❌ TIMEOUT personas/quantum-cat.png (status=429)
+[00:33:20] 🎨 START personas/reginald-finance.png (1:1)
+[00:33:20] ❌ TIMEOUT personas/reginald-finance.png (status=429)
+[00:33:20] 🎨 START variants/velox-standard.png (4:5)
+[00:33:20] ❌ TIMEOUT variants/velox-standard.png (status=429)
+[00:33:20] 🎨 START variants/velox-pro.png (4:5)
+[00:33:21] ❌ TIMEOUT variants/velox-pro.png (status=429)
+[00:33:21] 🎨 START variants/velox-pro-max.png (4:5)
+[00:33:21] ❌ TIMEOUT variants/velox-pro-max.png (status=429)
+[00:33:21] 🎨 START editorial/magazine-spread.png (16:9)
+[00:33:21] ❌ TIMEOUT editorial/magazine-spread.png (status=429)
+[00:33:21] 🎨 START editorial/wire-diagram.png (4:3)
+[00:33:22] ❌ TIMEOUT editorial/wire-diagram.png (status=429)
+[00:33:22] 🏁 ALL DONE
+[00:33:38] 🚀 START · 13 images · max parallel=5
+[00:33:38] 🎨 START hero/02-hero-cinematic.png (21:9)
+[00:33:39] ❌ TIMEOUT hero/02-hero-cinematic.png (status=422)
+[00:33:39] 🔄 RETRY hero/02-hero-cinematic.png (attempt 2/3) · wait 15s
+[00:33:54] 🎨 START hero/02-hero-cinematic.png (21:9)
+[00:33:54] ❌ TIMEOUT hero/02-hero-cinematic.png (status=422)
+[00:33:54] 🔄 RETRY hero/02-hero-cinematic.png (attempt 3/3) · wait 15s
+[00:34:09] 🎨 START hero/02-hero-cinematic.png (21:9)
+[00:34:10] ❌ TIMEOUT hero/02-hero-cinematic.png (status=422)
+[00:34:10] 💀 GIVE-UP hero/02-hero-cinematic.png after 3 attempts
+[00:34:13] 🎨 START hero/03-detail-curve.png (4:3)
+[00:34:13] ❌ TIMEOUT hero/03-detail-curve.png (status=429)
+[00:34:13] 🔄 RETRY hero/03-detail-curve.png (attempt 2/3) · wait 15s
+[00:34:28] 🎨 START hero/03-detail-curve.png (4:3)
+[00:34:32] ✅ DONE hero/03-detail-curve.png · 941 KB
+[00:34:35] 🎨 START personas/margaret-voss.png (1:1)
+[00:34:35] ❌ TIMEOUT personas/margaret-voss.png (status=429)
+[00:34:35] 🔄 RETRY personas/margaret-voss.png (attempt 2/3) · wait 15s
+[00:34:50] 🎨 START personas/margaret-voss.png (1:1)
+[00:34:57] ✅ DONE personas/margaret-voss.png · 1427 KB
+[00:35:00] 🎨 START personas/anton-locksmith.png (1:1)
+[00:35:00] ❌ TIMEOUT personas/anton-locksmith.png (status=429)
+[00:35:00] 🔄 RETRY personas/anton-locksmith.png (attempt 2/3) · wait 15s
+[00:35:15] 🎨 START personas/anton-locksmith.png (1:1)
+[00:35:23] ✅ DONE personas/anton-locksmith.png · 1606 KB
+[00:35:26] ⏭️  SKIP personas/yann-researcher.png (exists)
+[00:35:29] 🎨 START personas/hiroshi-organizer.png (1:1)
+[00:35:35] ✅ DONE personas/hiroshi-organizer.png · 1409 KB
+[00:35:38] 🎨 START personas/quantum-cat.png (1:1)
+[00:35:39] ❌ TIMEOUT personas/quantum-cat.png (status=429)
+[00:35:39] 🔄 RETRY personas/quantum-cat.png (attempt 2/3) · wait 15s
+[00:35:54] 🎨 START personas/quantum-cat.png (1:1)
+[00:35:59] ✅ DONE personas/quantum-cat.png · 1674 KB
+[00:36:02] 🎨 START personas/reginald-finance.png (1:1)
+[00:36:02] ❌ TIMEOUT personas/reginald-finance.png (status=429)
+[00:36:02] 🔄 RETRY personas/reginald-finance.png (attempt 2/3) · wait 15s
+[00:36:17] 🎨 START personas/reginald-finance.png (1:1)
+[00:36:22] ✅ DONE personas/reginald-finance.png · 1507 KB
+[00:36:25] 🎨 START variants/velox-standard.png (4:5)
+[00:36:26] ❌ TIMEOUT variants/velox-standard.png (status=429)
+[00:36:26] 🔄 RETRY variants/velox-standard.png (attempt 2/3) · wait 15s
+[00:36:41] 🎨 START variants/velox-standard.png (4:5)
+[00:36:48] ✅ DONE variants/velox-standard.png · 1170 KB
+[00:36:51] 🎨 START variants/velox-pro.png (4:5)
+[00:36:51] ❌ TIMEOUT variants/velox-pro.png (status=429)
+[00:36:51] 🔄 RETRY variants/velox-pro.png (attempt 2/3) · wait 15s
+[00:37:06] 🎨 START variants/velox-pro.png (4:5)
+[00:37:10] ✅ DONE variants/velox-pro.png · 1006 KB
+[00:37:13] 🎨 START variants/velox-pro-max.png (4:5)
+[00:37:13] ❌ TIMEOUT variants/velox-pro-max.png (status=429)
+[00:37:13] 🔄 RETRY variants/velox-pro-max.png (attempt 2/3) · wait 15s
+[00:37:28] 🎨 START variants/velox-pro-max.png (4:5)
+[00:37:35] ✅ DONE variants/velox-pro-max.png · 1016 KB
+[00:37:38] 🎨 START editorial/magazine-spread.png (16:9)
+[00:37:38] ❌ TIMEOUT editorial/magazine-spread.png (status=429)
+[00:37:38] 🔄 RETRY editorial/magazine-spread.png (attempt 2/3) · wait 15s
+[00:37:53] 🎨 START editorial/magazine-spread.png (16:9)
+[00:38:00] ✅ DONE editorial/magazine-spread.png · 1717 KB
+[00:38:03] 🎨 START editorial/wire-diagram.png (4:3)
+[00:38:09] ✅ DONE editorial/wire-diagram.png · 1615 KB
+[00:38:12] 🏁 ALL DONE

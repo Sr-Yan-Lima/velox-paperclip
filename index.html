@@ -361,6 +361,96 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
 .footer-bottom .links a { font-family: ui-monospace, monospace; font-size: 10px; color: rgba(245,242,234,0.4); letter-spacing: 0.18em; text-transform: uppercase; transition: color 250ms; }
 .footer-bottom .links a:hover { color: var(--velox); }
 
+/* === IMAGE STYLES (VELOX-2 assets) === */
+.hero-photo {
+  width: clamp(180px, 28vw, 320px);
+  height: auto;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 30px 60px -20px rgba(14,14,14,0.18), 0 8px 16px -4px rgba(14,14,14,0.08);
+  transition: transform 600ms cubic-bezier(.4,0,.2,1);
+}
+.paperclip-container:hover .hero-photo { transform: rotate(-3deg) scale(1.04); }
+
+.demo-photo {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 2px;
+  transition: transform 700ms cubic-bezier(.4,0,.2,1);
+}
+.paperclip-container:hover .demo-photo { transform: scale(1.05); }
+.hover-demo-frame { padding: 0; overflow: hidden; }
+.hover-demo-frame .corner-tl, .hover-demo-frame .corner-bl { z-index: 5; mix-blend-mode: difference; color: rgba(255,255,255,0.9); }
+
+/* Persona portraits */
+.review-photo {
+  width: 80px; height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1.25rem;
+  border: 2px solid var(--line);
+  transition: border-color 400ms;
+}
+.review-card:hover .review-photo { border-color: var(--velox); }
+
+/* Variant product photos */
+.variant-photo {
+  width: 100%; max-width: 80px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 2px;
+  margin: 0 auto 0.5rem;
+  display: block;
+}
+@media (min-width: 768px) {
+  .variant-photo { max-width: 100px; height: 120px; }
+}
+
+/* Magazine background photo */
+.magazine-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.18;
+  z-index: 0;
+  pointer-events: none;
+  filter: grayscale(40%) contrast(1.1);
+}
+.magazine-bg-wrap { position: relative; overflow: hidden; }
+.magazine-bg-wrap > .wrap { position: relative; z-index: 1; }
+
+/* Academic wire diagram */
+.academic-figure {
+  display: block; width: 100%; max-width: 600px;
+  margin: 2rem auto;
+  filter: invert(1) hue-rotate(180deg) brightness(1.1);
+  opacity: 0.85;
+}
+
+/* CTA cinematic background */
+.cta-bg-image {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+.cta-bg-overlay {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(245,242,234,0.85) 0%, rgba(245,242,234,0.95) 50%, rgba(245,242,234,1) 100%);
+}
+.cta-reveal-img-wrap > .wrap-narrow { position: relative; z-index: 2; }
+
+@media (max-width: 767px) {
+  .hero-photo { width: clamp(140px, 38vw, 220px); }
+  .review-photo { width: 64px; height: 64px; margin-bottom: 1rem; }
+  .variant-photo { max-width: 64px; height: 80px; }
+}
+
 /* === Reduced motion === */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.2s !important; }
@@ -635,10 +725,7 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
       </div>
       <div class="paperclip-hero">
         <div class="paperclip-container">
-          <svg class="paperclip-anim" width="160" height="220" viewBox="0 0 200 280" fill="none" aria-hidden="true">
-            <path d="M50 30 Q50 10 70 10 L140 10 Q160 10 160 30 L160 220 Q160 250 130 250 L70 250 Q40 250 40 220 L40 60 Q40 40 60 40 L130 40 Q150 40 150 60 L150 200 Q150 220 130 220 L80 220 Q60 220 60 200 L60 80 Q60 60 80 60 L120 60" stroke="#0E0E0E" stroke-width="3" stroke-linecap="round" fill="none"/>
-            <path d="M50 30 Q50 10 70 10 L140 10 Q160 10 160 30 L160 220 Q160 250 130 250 L70 250 Q40 250 40 220 L40 60 Q40 40 60 40 L130 40 Q150 40 150 60 L150 200 Q150 220 130 220 L80 220 Q60 220 60 200 L60 80 Q60 60 80 60 L120 60" stroke="#D4571E" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.4"/>
-          </svg>
+          <img class="paperclip-anim hero-photo" src="assets/hero/01-hero-macro.jpg" alt="VELOX-1 paper clip · macro photograph" width="320" height="320" loading="eager" decoding="async">
           <span class="paperclip-caption">FIG.001 · ACTUAL SIZE</span>
         </div>
       </div>
@@ -710,9 +797,7 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
     <div class="hover-demo-grid">
       <div class="hover-demo-left paperclip-container">
         <div class="hover-demo-frame grain-bg">
-          <svg class="paperclip-anim" width="60%" height="60%" viewBox="0 0 200 280" fill="none" aria-hidden="true">
-            <path d="M50 30 Q50 10 70 10 L140 10 Q160 10 160 30 L160 220 Q160 250 130 250 L70 250 Q40 250 40 220 L40 60 Q40 40 60 40 L130 40 Q150 40 150 60 L150 200 Q150 220 130 220 L80 220 Q60 220 60 200 L60 80 Q60 60 80 60 L120 60" stroke="#0E0E0E" stroke-width="3" stroke-linecap="round" fill="none"/>
-          </svg>
+          <img class="paperclip-anim demo-photo" src="assets/hero/03-detail-curve.jpg" alt="VELOX-1 wire detail · macro" loading="lazy" decoding="async">
           <span class="corner-tl">SCALE 1:1</span>
           <span class="corner-bl">→ TRY HOVERING ME</span>
         </div>
@@ -728,7 +813,8 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
 </section>
 
 <!-- ============================================= MAGAZINE -->
-<section class="bg-ink grain-bg">
+<section class="bg-ink grain-bg magazine-bg-wrap">
+  <img class="magazine-bg" src="assets/editorial/magazine-spread.jpg" alt="" loading="lazy" decoding="async" aria-hidden="true">
   <div class="wrap">
     <div class="mag-header">
       <p>ARX QUARTERLY</p>
@@ -817,6 +903,7 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
 
     <div class="reviews-grid">
       <div class="review-card skew-1">
+        <img class="review-photo" src="assets/personas/margaret-voss.jpg" alt="Margaret Voss" loading="lazy" decoding="async">
         <div class="stars">★★★★★</div>
         <p class="quote">"Bound my novel manuscript in 1973. Forgot it in a drawer. Found it last week. Manuscript intact. VELOX-1 still gripping. Time itself bent around it."</p>
         <div class="author">
@@ -825,6 +912,7 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
         </div>
       </div>
       <div class="review-card skew-pos">
+        <img class="review-photo" src="assets/personas/anton-locksmith.jpg" alt="Anton K." loading="lazy" decoding="async">
         <div class="stars">★★★★★</div>
         <p class="quote">"I tried to bend a VELOX-1 into a lock pick. The wire bent <em>me</em>. Now I work in compliance. Highly recommend."</p>
         <div class="author">
@@ -833,6 +921,7 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
         </div>
       </div>
       <div class="review-card">
+        <img class="review-photo" src="assets/personas/yann-researcher.jpg" alt="Dr. Yann LeCunha" loading="lazy" decoding="async">
         <div class="stars">★★★★<span class="empty">★</span></div>
         <p class="quote">"I asked our LLM if VELOX-1 was sentient. It said 'no.' I do not believe it. Removed half a star for plausible deniability."</p>
         <div class="author">
@@ -841,6 +930,7 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
         </div>
       </div>
       <div class="review-card skew-pos">
+        <img class="review-photo" src="assets/personas/hiroshi-organizer.jpg" alt="Hiroshi Tanaka" loading="lazy" decoding="async">
         <div class="stars">★★★★★</div>
         <p class="quote">"I've spent 30 years looking for the perfect office object. I have found three: my chair, my mug, and now VELOX-1. The trinity is complete."</p>
         <div class="author">
@@ -849,6 +939,7 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
         </div>
       </div>
       <div class="review-card skew-1">
+        <img class="review-photo" src="assets/personas/quantum-cat.jpg" alt="The Quantum Cat" loading="lazy" decoding="async">
         <div class="stars">★★★★★</div>
         <p class="quote">"VELOX-1 binds papers. I bind realities. Together, we are unstoppable. Also it works on USB-C cables somehow."</p>
         <div class="author">
@@ -857,6 +948,7 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
         </div>
       </div>
       <div class="review-card">
+        <img class="review-photo" src="assets/personas/reginald-finance.jpg" alt="Reginald Worthington III" loading="lazy" decoding="async">
         <div class="stars">★★★★★</div>
         <p class="quote">"I held a VELOX-1 to my ear and heard the sea. I held it to a quarterly report and heard <em>truth</em>. 10/10 would acquire again."</p>
         <div class="author">
@@ -879,9 +971,18 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
     <div class="compare-table">
       <div class="compare-row head">
         <div></div>
-        <div class="tier"><p class="tier-name serif">VELOX-1</p><p class="tier-price">$1,247 / box</p></div>
-        <div class="tier"><p class="tier-name serif">VELOX Pro</p><p class="tier-price">$3,499 / box</p></div>
-        <div class="tier"><p class="tier-name serif gold">VELOX Pro Max</p><p class="tier-price" style="color: var(--velox);">$11,800 / box</p></div>
+        <div class="tier">
+          <img class="variant-photo" src="assets/variants/velox-standard.jpg" alt="VELOX-1 standard" loading="lazy" decoding="async">
+          <p class="tier-name serif">VELOX-1</p><p class="tier-price">$1,247 / box</p>
+        </div>
+        <div class="tier">
+          <img class="variant-photo" src="assets/variants/velox-pro.jpg" alt="VELOX Pro titanium" loading="lazy" decoding="async">
+          <p class="tier-name serif">VELOX Pro</p><p class="tier-price">$3,499 / box</p>
+        </div>
+        <div class="tier">
+          <img class="variant-photo" src="assets/variants/velox-pro-max.jpg" alt="VELOX Pro Max forged" loading="lazy" decoding="async">
+          <p class="tier-name serif gold">VELOX Pro Max</p><p class="tier-price" style="color: var(--velox);">$11,800 / box</p>
+        </div>
       </div>
 
       <div class="compare-row"><div class="label">Binding strength</div><div class="compare-cell">47 kg</div><div class="compare-cell">94 kg</div><div class="compare-cell gold">Theoretically infinite</div></div>
@@ -944,6 +1045,8 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
       <div class="ack">We thank Nick Bostrom (hypothetically), the entire 1899 Connecticut paper clip cooperative, and the anonymous reviewer who suggested we "consider whether the paper clip needs to exist at all" — they were right, but here we are.</div>
     </div>
 
+    <img class="academic-figure" src="assets/editorial/wire-diagram.jpg" alt="Wire-bent geometry technical diagram" loading="lazy" decoding="async">
+
     <div class="academic-grid">
       <div>BIBTEX</div>
       <div><pre class="bibtex">@article{velox2026,
@@ -962,7 +1065,9 @@ footer { background: var(--ink); color: var(--paper); padding: 5rem 0 2rem; posi
 </section>
 
 <!-- ============================================= CTA REVEAL -->
-<section id="cta" class="grain-bg cta-reveal">
+<section id="cta" class="grain-bg cta-reveal cta-reveal-img-wrap">
+  <img class="cta-bg-image" src="assets/hero/02-hero-cinematic.jpg" alt="" loading="lazy" decoding="async" aria-hidden="true">
+  <div class="cta-bg-overlay"></div>
   <div class="wrap-narrow">
     <p class="eyebrow narr-eyebrow">— THE REVEAL</p>
     <h2>We caught your<br>attention with a <em>paper clip.</em></h2>
